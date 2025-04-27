@@ -19,3 +19,7 @@ class UserCreate(BaseModel):
         if not re.search(r"[!@#$%^&*()_+{}\[\]:;\"'<>,.?/~`\\|-]", value):
             raise ValueError("Password must contain at least one special character (!@#$%^&...)")
         return value
+
+class UserLogin(BaseModel):
+    email: EmailStr
+    password: str
