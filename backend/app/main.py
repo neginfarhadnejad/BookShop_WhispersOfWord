@@ -1,15 +1,25 @@
 from fastapi import FastAPI
-from app.db.database import engine
-from app.api import user as user_route   
-from app.models import user as user_model
+from loguru import logger
+
+from app.infrastructure.db.database import init_db
+from app.api.routes.user_route import router as user_router
 
 
-app = FastAPI()
+def create_app() -> FastAPI:
+    app = FastAPI(title="BookShop IAM Service")
 
-user_model.Base.metadata.create_all(bind=engine)
-app.include_router(user_route.router)
+    # Initialize database
+    init_db()
+
+    # Register routes
+    app.include_router(user_router)
+
+    @app.get("/")
+    def root():
+        return {"message": "Welcome to BookShop IAM Service"}
+
+    logger.info("App initialized successfully.")
+    return app
 
 
-@app.get("/")
-def root():
-    return {"message": "Welcome to BookShop IAM Service"}
+app = create_app()
