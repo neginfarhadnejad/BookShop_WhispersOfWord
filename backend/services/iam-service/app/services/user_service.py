@@ -12,7 +12,7 @@ class UserService:
             (User.email == email) | (User.mobile_number == mobile_number)
         ).first()
 
-    def create_user(self, first_name, last_name, email, mobile_number, hashed_password):
+    def create_user(self, first_name, last_name, email, mobile_number, hashed_password ,role="user"):
         user = User(
             first_name=first_name,
             last_name=last_name,
@@ -20,6 +20,8 @@ class UserService:
             mobile_number=mobile_number,
             hashed_password=hashed_password,
             is_verified=False,
+            role=role
+
         )
         self.db.add(user)
         self.db.commit()
