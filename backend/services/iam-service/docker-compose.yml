@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  db:
+  postgres:
     image: postgres:13
     container_name: bookshop_postgres
     restart: always
@@ -10,9 +10,49 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: bookshop_db
     ports:
-      - "5433:5432"
+      - "5436:5432"  
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - backend
+
+  redis:
+    image: redis:7
+    container_name: bookshop_redis
+    restart: always
+    ports:
+      - "6379:6379"
+    networks:
+      - backend
+
+  iam-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: bookshop_iam
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: bookshop_db
+      POSTGRES_HOST: bookshop_postgres  # اتصال به سرویس postgres
+      POSTGRES_PORT: 5432  # استفاده از پورت داخلی کانتینر
+      REDIS_URL: bookshop_redis
+      REDIS_PORT: 6379
+
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
 
 volumes:
   postgres_data:

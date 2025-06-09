@@ -1,4 +1,5 @@
 from pydantic import BaseModel, EmailStr
+
 from typing import Optional
 from datetime import datetime
 
@@ -6,7 +7,6 @@ class AdminBaseSchema(BaseModel):
     name: str
     email: EmailStr
     phone_number: str
-    date_of_birth: Optional[str]
     role: Optional[str] = "admin"
   
     class Config:
@@ -39,6 +39,3 @@ class AdminWelcomeSchema(BaseModel):
     class Config:
         orm_mode = True
 
-class TokenSchema(BaseModel):
-    access_token: str
-    token_type: str = "bearer"
