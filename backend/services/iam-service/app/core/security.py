@@ -35,7 +35,6 @@ def get_current_user_or_admin(
     if not user_or_admin:
         raise credentials_exception
 
-    # نقش را به مدل اضافه کن تا endpointها بهش دسترسی داشته باشن
     user_or_admin.role = role
     return user_or_admin
 

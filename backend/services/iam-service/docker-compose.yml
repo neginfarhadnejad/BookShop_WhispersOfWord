@@ -39,8 +39,8 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       POSTGRES_DB: bookshop_db
-      POSTGRES_HOST: bookshop_postgres  # اتصال به سرویس postgres
-      POSTGRES_PORT: 5432  # استفاده از پورت داخلی کانتینر
+      POSTGRES_HOST: bookshop_postgres  
+      POSTGRES_PORT: 5432  
       REDIS_URL: bookshop_redis
       REDIS_PORT: 6379
 

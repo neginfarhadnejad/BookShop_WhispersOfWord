@@ -5,7 +5,7 @@ from datetime import timedelta
 
 SECRET_KEY = "nTn2J5NggXk4Vb6dwq6_jpAKrs6ZuCJ9oTUgFLlaF14"
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24  # یک روز
+ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 
 
 class Settings(BaseSettings):
     DATABASE_DIALECT: str = "postgresql"

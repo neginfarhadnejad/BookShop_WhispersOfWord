@@ -5,7 +5,7 @@ import time
 from app.core.redis.redis_client import redis_client
 
 class OTPService:
-    OTP_TTL_SECONDS = 300  # اعتبار ۵ دقیقه‌ای
+    OTP_TTL_SECONDS = 300  
 
     @staticmethod
     def generate_otp():

@@ -54,7 +54,6 @@ def reset_password(
     if not data or data["otp"] != otp:
         raise HTTPException(status_code=400, detail="Invalid or expired OTP")
 
-    # پیدا کردن کاربر یا ادمین
     if role == "user":
         account = db.query(User).filter(User.email == email).first()
     else:
@@ -63,7 +62,6 @@ def reset_password(
     if not account:
         raise HTTPException(status_code=404, detail="No such user or admin found")
 
-    # هش رمز جدید
     account.hashed_password = HashService().hash_password(new_password)
     db.commit()
     OTPService.delete_otp(email, role)

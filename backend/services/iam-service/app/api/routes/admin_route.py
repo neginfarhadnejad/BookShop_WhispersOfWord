@@ -13,7 +13,7 @@ router = APIRouter(tags=["admins"])
 
 def get_admin_auth_service(db: Session = Depends(get_db)) -> AdminAuthService:
     hash_service = HashService()
-    admin_service = AdminService(db)   # فقط db
+    admin_service = AdminService(db)  
     return AdminAuthService(hash_service=hash_service, admin_service=admin_service)
 
 

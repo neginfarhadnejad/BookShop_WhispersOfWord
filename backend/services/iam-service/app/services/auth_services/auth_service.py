@@ -17,13 +17,13 @@ class AuthService:
         return encoded_jwt
 
     def authenticate_via_oauth(self, form_data):
-        # اول user
+
         user = self.user_service.get_by_email_or_mobile(form_data.username, form_data.username)
         if user and self.hash_service.verify_password(form_data.password, user.hashed_password):
             access_token = self.create_access_token({"sub": str(user.id), "role": "user"})
             return {"access_token": access_token, "token_type": "bearer"}
 
-        # بعد admin
+
         admin = self.admin_service.get_by_email_or_phone(form_data.username, form_data.username)
         if admin and self.hash_service.verify_password(form_data.password, admin.hashed_password):
             access_token = self.create_access_token({"sub": str(admin.id), "role": "admin"})

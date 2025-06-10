@@ -10,7 +10,7 @@ class AdminAuthService:
 
     def register_admin(self, admin_create: AdminCreateSchema):
         try:
-            # چک تکراری بودن ایمیل یا موبایل
+            
             existing_admin = self.admin_service.get_by_email_or_phone(
                 admin_create.email, admin_create.phone_number
             )
@@ -20,10 +20,10 @@ class AdminAuthService:
                     detail="Email or phone number already registered",
                 )
 
-            # هش کردن رمز عبور
+
             hashed_password = self.hash_service.hash_password(admin_create.password)
 
-            # ایجاد ادمین جدید
+
             created_admin = self.admin_service.create_admin(
                 name=admin_create.name,
                 email=admin_create.email,

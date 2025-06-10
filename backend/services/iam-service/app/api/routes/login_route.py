@@ -8,7 +8,6 @@ from app.services.auth_services.auth_service import AuthService
 from app.services.auth_services.hash_service import HashService
 from app.domain.schemas.token_schema import TokenSchema
 
-# فقط همین یک خط
 router = APIRouter(tags=["login"])
 
 def get_auth_service(db: Session = Depends(get_db)):
